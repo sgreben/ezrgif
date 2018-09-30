@@ -1,6 +1,8 @@
 # ezrgif
 
-[![Docker Repository on Quay](https://quay.io/repository/sergey_grebenshchikov/ezrgif/status "Docker Repository on Quay")](https://quay.io/repository/sergey_grebenshchikov/ezrgif) ![wobble](doc/eggplant.small.gif) GIF effects from the command-line. ![wobble](doc/eggplant.small.gif)
+[![Docker Repository on Quay](https://quay.io/repository/sergey_grebenshchikov/ezrgif/status "Docker Repository on Quay")](https://quay.io/repository/sergey_grebenshchikov/ezrgif)
+
+GIF effects from the command-line.
 
 ![terminal](doc/terminal2.gif)
 
