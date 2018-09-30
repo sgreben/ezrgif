@@ -20,12 +20,14 @@ GIF effects from the command-line.
 - [Examples](#examples)
     - [Pulse+wobble+optimize](#pulsewobbleoptimize)
     - [Wobble](#wobble)
+    - [Woke+optimize](#wokeoptimize)
 - [Effects](#effects)
     - [roll](#roll)
     - [wobble](#wobble)
     - [pulse](#pulse)
     - [zoom](#zoom)
     - [shake](#shake)
+    - [woke](#woke)
     - [optimize](#optimize)
 
 <!-- /TOC -->
@@ -105,6 +107,14 @@ $ <doc/eggplant.png gif wobble -c 60% -n 20 > doc/eggplant.gif
 ```
 
 ![before](doc/eggplant.png)![after](doc/eggplant.gif)
+
+### Woke+optimize
+
+```sh
+$ <doc/moth.png gif woke -f -n 10 -y -15 -a 1.0 -m linear-dodge -z 60% | gif optimize > doc/woke.gif
+```
+
+![before](doc/moth.png)![after](doc/woke.gif)
 
 ## Effects
 
@@ -190,6 +200,29 @@ defaults:
     PHASE_Y=pi/2
     FINAL_SIZE=128x128
     PHASE_RANDOM=pi
+```
+
+### woke
+
+![woke](doc/woke.gif)
+
+```text
+woke [ -f | -v ] [ -m MODE ] [ -n FLARE_FRAMES ] [ -x FLARE_X ] [ -y FLARE_Y ] [ -z FLARE_SCALE ] [ -a FLARE_ALPHA ] [ -r FLARE_ANGLE_RANDOM ] [ -t FLARE_TRANSFORM ] [ -d DELAY ] [ -s FINAL_SIZE ] INPUT
+defaults:
+    MIRROR_X=0
+    MIRROR_Y=0
+    MODE=linear-light
+    FLARE_FRAMES=
+    FLARE_X=-33
+    FLARE_Y=-5
+    FLARE_SCALE=90%
+    FLARE_ALPHA=0.5
+    FLARE_ANGLE_RANDOM=30
+    FLARE_TRANSFORM=0
+    DELAY=2x100
+    FINAL_SIZE=128x128
+available -m modes:
+    Atop, Blend, Blur, Bumpmap, ChangeMask, Clear, ColorBurn, ColorDodge, Colorize, CopyAlpha, CopyBlack, CopyBlue, CopyCyan, CopyGreen, Copy, CopyMagenta, CopyRed, CopyYellow, Darken, DarkenIntensity, DivideDst, DivideSrc, Dst, Difference, Displace, Dissolve, Distort, DstAtop, DstIn, DstOut, DstOver, Exclusion, HardLight, HardMix, Hue, In, Intensity, Lighten, LightenIntensity, LinearBurn, LinearDodge, LinearLight, Luminize, Mathematics, MinusDst, MinusSrc, Modulate, ModulusAdd, ModulusSubtract, Multiply, None, Out, Overlay, Over, PegtopLight, PinLight, Plus, Replace, Saturate, Screen, SoftLight, Src, SrcAtop, SrcIn, SrcOut, SrcOver, Stereo, VividLight, Xor,
 ```
 
 ### optimize

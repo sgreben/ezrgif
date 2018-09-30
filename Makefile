@@ -2,7 +2,7 @@
 
 NAME := ezrgif
 REPOSITORY := quay.io/sergey_grebenshchikov/$(NAME)
-VERSION := 1.0.1
+VERSION := 1.1.0
 
 build: Dockerfile gif.sh
 	docker build -t $(NAME) -t $(REPOSITORY):latest -t $(REPOSITORY):$(VERSION) .
