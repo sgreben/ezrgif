@@ -294,6 +294,9 @@ gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install
     done
     done
     >&2 echo "could not get size below $TARGET_SIZE_KB"KB
+    cat "$INPUT"
+    rm -f "$INPUT_TEMP_FILE"
+    rm -f "$TEMP_FILE"
     false
 }
 
