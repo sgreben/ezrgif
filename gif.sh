@@ -306,18 +306,19 @@ available -m modes:
     done
     shift $((OPTIND - 1))
     INPUT=${1:--}
-    INPUT_TEMP_FILE=$(mktemp)
-    cat "$INPUT" > "$INPUT_TEMP_FILE"
-    INPUT=$INPUT_TEMP_FILE
     LENSFLARE_PNG_TEMP=$(mktemp)
     base64 > "$LENSFLARE_PNG_TEMP" -D <<EOF
 $LENSFLARE_PNG_BASE64
 EOF
+    INPUT_TEMP_FILE=
+    if [ -z "$FLARE_FRAMES" ]; then
+        INPUT_TEMP_FILE=$(mktemp)
+        cat "$INPUT" > "$INPUT_TEMP_FILE"
+        INPUT=$INPUT_TEMP_FILE
+        FLARE_FRAMES=$(printf "%s" "$(identify -format "%n\\n" "$INPUT" | head -n1)")
+        FLARE_FRAMES=$((FLARE_FRAMES-1))
+    fi
     (
-        if [ -z "$FLARE_FRAMES" ]; then
-            FLARE_FRAMES=$(printf "%s" "$(identify -format "%n\\n" "$INPUT" | head -n1)")
-            FLARE_FRAMES=$((FLARE_FRAMES-1))
-        fi
         set -x
         convert -background transparent -dispose background \
             "$INPUT" -coalesce \
@@ -351,7 +352,9 @@ EOF
             +remap GIF:-
     ) || true
     rm -f "$LENSFLARE_PNG_TEMP"
-    rm -f "$INPUT_TEMP_FILE"
+    if [ -n "$INPUT_TEMP_FILE" ]; then
+        rm -f "$INPUT_TEMP_FILE"
+    fi
 }
 
 gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install giflossy)
