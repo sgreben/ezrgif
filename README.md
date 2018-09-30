@@ -4,7 +4,7 @@
 
 GIF effects from the command-line.
 
-![terminal](doc/terminal2.gif)
+![terminal](doc/terminal.gif)
 
 
 <!-- TOC -->
