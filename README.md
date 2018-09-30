@@ -1,6 +1,6 @@
 # ezrgif
 
-![wobble](doc/eggplant.small.gif) GIF effects from the CLI. ![wobble](doc/eggplant.small.gif)
+![wobble](doc/eggplant.small.gif) GIF effects from the command-line. ![wobble](doc/eggplant.small.gif)
 
 ![terminal](doc/terminal2.gif)
 
