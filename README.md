@@ -12,7 +12,7 @@ docker tag quay.io/sergey_grebenshchikov/ezrgif ezrgif
 ## Use it
 
 ```sh
-$ docker run --rm -it ezrgif -h
+$ docker run --rm -i ezrgif -h
 Usage:
     ezrgif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]
 ```
