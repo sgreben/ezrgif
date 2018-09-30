@@ -2,7 +2,7 @@
 
 ![wobble](doc/eggplant.small.gif) GIF effects from the CLI. ![wobble](doc/eggplant.small.gif)
 
-![terminal](doc/terminal.gif)
+![terminal](doc/terminal2.gif)
 
 <!-- TOC -->
 
