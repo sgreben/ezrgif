@@ -9,5 +9,5 @@ RUN cp "$(which gifsicle)" /gifsicle
 FROM alpine:3.8
 RUN apk add --no-cache imagemagick
 COPY --from=build /gifsicle /bin/gifsicle
-COPY gif.sh /gif.sh
-ENTRYPOINT ["/gif.sh"]
+COPY gif.sh /ezrgif
+ENTRYPOINT ["/ezrgif"]

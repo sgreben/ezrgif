@@ -8,12 +8,16 @@
 <!-- TOC -->
 
 - [Get it](#get-it)
-    - [Docker image](#docker-image)
-    - [Source (requires imagemagick+giflossy)](#source-requires-imagemagickgiflossy)
-        - [Prerequisites (Mac)](#prerequisites-mac)
-        - [Prerequisites (linux)](#prerequisites-linux)
+    - [Docker image (easiest)](#docker-image-easiest)
+    - [From source](#from-source)
+        - [Install prerequisites (Mac)](#install-prerequisites-mac)
+        - [Install prerequisites (linux)](#install-prerequisites-linux)
 - [Use it](#use-it)
+    - [Docker image](#docker-image)
+    - [From source](#from-source-1)
 - [Examples](#examples)
+    - [Pulse+wobble+optimize](#pulsewobbleoptimize)
+    - [Wobble](#wobble)
 - [Effects](#effects)
     - [roll](#roll)
     - [wobble](#wobble)
@@ -26,31 +30,41 @@
 
 ## Get it
 
-### Docker image
+### Docker image (easiest)
+
+Pull & run:
 
 ```sh
 docker pull quay.io/sergey_grebenshchikov/ezrgif
 docker tag quay.io/sergey_grebenshchikov/ezrgif ezrgif
 ```
 
-### Source (requires imagemagick+giflossy)
+You can now simply `docker run -i ezrgif`.
+
+### From source
+
+This probably starts up a bit faster than the Docker option, but you need to take care of the dependencies yourself.
 
 ```sh
-$ curl -sSL https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh > gif.sh
-$ chmod +x gif.sh
+$ curl -sSL https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh > gif
+$ chmod +x gif
 ```
 
-#### Prerequisites (Mac)
+You will also need to install `imagemagick`, as well as the `--lossy` fork of `gifsicle`:
+
+#### Install prerequisites (Mac)
 
 ```sh
 $ brew install imagemagick giflossy
 ```
 
-#### Prerequisites (linux)
+#### Install prerequisites (linux)
 
 See [Dockerfile](Dockerfile)
 
 ## Use it
+
+### Docker image
 
 ```sh
 $ docker run --rm -i ezrgif -h
@@ -58,21 +72,32 @@ Usage:
     ezrgif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]
 ```
 
+### From source
+
+```sh
+$ ./gif -h
+Usage:
+    gif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]
+```
 
 ## Examples
+
+If you're using Docker, put this in your shell aliases:
 
 ```sh
 $ alias gif="docker run -i --rm ezrgif"
 ```
+
+### Pulse+wobble+optimize
+
 ```sh
 $ <doc/moth.png gif pulse -0 1.0 -1 1.5 -n 20 | gif wobble -d 3x100 -p 100% -c 100% | gif optimize > doc/moth.gif
 ```
 
 ![before](doc/moth.png)![after](doc/moth.gif)
 
-```sh
-$ alias gif="docker run -i --rm ezrgif"
-```
+### Wobble
+
 ```sh
 $ <doc/eggplant.png gif wobble -c 60% -n 20 > doc/eggplant.gif
 ```

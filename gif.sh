@@ -310,8 +310,9 @@ main() {
         shake) gif_shake "$@" ;;
         optimize) gif_optimize_for_slack "$@" ;;
         *)
+            name=$(basename "$0")
             >&2 echo "Usage:"
-            >&2 echo "    ezrgif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]"
+            >&2 echo "    $name (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]"
     esac
 }
 
