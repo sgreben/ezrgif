@@ -193,13 +193,15 @@ gif_shake() {
     CUT_TO=50%
     DELAY=2x100
     NUM_FRAMES=1
-    AMPLITUDE_X=0
-    AMPLITUDE_Y=0
-    FREQUENCY_X=1
-    FREQUENCY_Y=1
+    AMPLITUDE_X=10
+    AMPLITUDE_Y=10
+    FREQUENCY_X=2
+    FREQUENCY_Y=2
+    PHASE_X=0
     PHASE_Y=pi/2
+    PHASE_RANDOM=pi
     FINAL_SIZE=128x128
-    while getopts p:c:d:n:x:y:f:g:o:s:h name
+    while getopts p:c:d:n:x:y:f:g:o:r:s:h name
     do
         case $name in
         p) PAD_TO="$OPTARG" ;;
@@ -211,9 +213,10 @@ gif_shake() {
         f) FREQUENCY_X="$OPTARG";;
         g) FREQUENCY_Y="$OPTARG";;
         o) PHASE_Y="$OPTARG";;
+        r) PHASE_RANDOM="$OPTARG";;
         s) FINAL_SIZE="$OPTARG";;
         *)
-            >&2 echo "shake [-p PAD_TO] [ -c CUT_TO ] [ -d DELAY ] [ -n NUM_FRAMES ] [ -x AMPLITUDE_X ] [ -y AMPLITUDE_Y ] [ -f FREQUENCY_X ] [ -g FREQUENCY_Y ] [ -o PHASE_Y ] [ -s FINAL_SIZE ] INPUT"
+            >&2 echo "shake [-p PAD_TO] [ -c CUT_TO ] [ -d DELAY ] [ -n NUM_FRAMES ] [ -x AMPLITUDE_X ] [ -y AMPLITUDE_Y ] [ -f FREQUENCY_X ] [ -g FREQUENCY_Y ] [ -o PHASE_Y ] [ -r PHASE_RANDOM ] [ -s FINAL_SIZE ] INPUT"
             >&2 echo "defaults:
     PAD_TO=$PAD_TO
     CUT_TO=$CUT_TO
@@ -224,7 +227,8 @@ gif_shake() {
     FREQUENCY_X=$FREQUENCY_X
     FREQUENCY_Y=$FREQUENCY_Y
     PHASE_Y=$PHASE_Y
-    FINAL_SIZE=$FINAL_SIZE"
+    FINAL_SIZE=$FINAL_SIZE
+    PHASE_RANDOM=$PHASE_RANDOM"
             false
             return
         ;;
@@ -239,7 +243,7 @@ gif_shake() {
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
-                -distort SRT "0,0 1,1 0 %[fx:($AMPLITUDE_X)*sin(2*($FREQUENCY_X)*pi*(t/n+rand()))],%[fx:($AMPLITUDE_Y)*sin(($PHASE_Y)+2*($FREQUENCY_Y)*pi*(t/n+rand()))]" \
+                -distort SRT "0,0 1,1 0%[fx:($AMPLITUDE_X)*sin(($PHASE_X)+2*($FREQUENCY_X)*pi*(t/n)+($PHASE_RANDOM)*rand())],%[fx:($AMPLITUDE_Y)*sin(($PHASE_Y)+2*($FREQUENCY_Y)*pi*(t/n)+($PHASE_RANDOM)*rand())]" \
                 -extent "$CUT_TO" -resize "$FINAL_SIZE" \
                 -set delay "$DELAY" \
                 GIF:-

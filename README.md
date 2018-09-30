@@ -126,18 +126,19 @@ defaults:
 ![shake](doc/shake.gif)
 
 ```text
-shake [-p PAD_TO] [ -c CUT_TO ] [ -d DELAY ] [ -n NUM_FRAMES ] [ -x AMPLITUDE_X ] [ -y AMPLITUDE_Y ] [ -f FREQUENCY_X ] [ -g FREQUENCY_Y ] [ -o PHASE_Y ] [ -s FINAL_SIZE ] INPUT
+shake [-p PAD_TO] [ -c CUT_TO ] [ -d DELAY ] [ -n NUM_FRAMES ] [ -x AMPLITUDE_X ] [ -y AMPLITUDE_Y ] [ -f FREQUENCY_X ] [ -g FREQUENCY_Y ] [ -o PHASE_Y ] [ -r PHASE_RANDOM ] [ -s FINAL_SIZE ] INPUT
 defaults:
     PAD_TO=200%
     CUT_TO=50%
     DELAY=2x100
     NUM_FRAMES=1
-    AMPLITUDE_X=0
-    AMPLITUDE_Y=0
-    FREQUENCY_X=1
-    FREQUENCY_Y=1
+    AMPLITUDE_X=10
+    AMPLITUDE_Y=10
+    FREQUENCY_X=2
+    FREQUENCY_Y=2
     PHASE_Y=pi/2
     FINAL_SIZE=128x128
+    PHASE_RANDOM=pi
 ```
 
 ### optimize
