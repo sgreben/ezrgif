@@ -36,7 +36,7 @@ GIF effects from the command-line.
 
 ### Docker image (easiest)
 
-Pull & run:
+Pull & tag:
 
 ```sh
 docker pull quay.io/sergey_grebenshchikov/ezrgif
@@ -54,7 +54,7 @@ $ curl -sSL https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh > gif
 $ chmod +x gif
 ```
 
-You will also need to install `imagemagick`, as well as the `--lossy` fork of `gifsicle`:
+As to the dependencies: you will need to install `imagemagick`, as well as the `--lossy` fork of `gifsicle`:
 
 #### Install prerequisites (Mac)
 
