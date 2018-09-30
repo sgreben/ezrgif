@@ -307,7 +307,7 @@ available -m modes:
     shift $((OPTIND - 1))
     INPUT=${1:--}
     LENSFLARE_PNG_TEMP=$(mktemp)
-    base64 > "$LENSFLARE_PNG_TEMP" -D <<EOF
+    (base64 -D 2>/dev/null || base64 -d) > "$LENSFLARE_PNG_TEMP"  <<EOF
 $LENSFLARE_PNG_BASE64
 EOF
     INPUT_TEMP_FILE=
