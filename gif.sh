@@ -268,11 +268,6 @@ gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install
     INPUT="$INPUT_TEMP_FILE"
     TEMP_FILE=$(mktemp)
     size=$(du -k "$INPUT" | xargs printf "%s%0.s")
-    if ! gifsicle -h | grep -- '--loss' >/dev/null; then
-        >&2 printf "%s requires gifsicle with the --lossy option (brew install giflossy)\\n" "$0s"
-        false
-        return
-    fi
     if [ "$size" -le "$TARGET_SIZE_KB" ]; then
         cat "$INPUT"
         rm -f "$INPUT_TEMP_FILE"
