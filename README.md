@@ -7,6 +7,10 @@
 <!-- TOC -->
 
 - [Get it](#get-it)
+    - [Docker image](#docker-image)
+    - [Source (requires imagemagick+giflossy)](#source-requires-imagemagickgiflossy)
+        - [Prerequisites (Mac)](#prerequisites-mac)
+        - [Prerequisites (linux)](#prerequisites-linux)
 - [Use it](#use-it)
 - [Examples](#examples)
 - [Effects](#effects)
@@ -21,10 +25,29 @@
 
 ## Get it
 
+### Docker image
+
 ```sh
 docker pull quay.io/sergey_grebenshchikov/ezrgif
 docker tag quay.io/sergey_grebenshchikov/ezrgif ezrgif
 ```
+
+### Source (requires imagemagick+giflossy)
+
+```sh
+$ curl -sSL https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh > gif.sh
+$ chmod +x gif.sh
+```
+
+#### Prerequisites (Mac)
+
+```sh
+$ brew install imagemagick giflossy
+```
+
+#### Prerequisites (linux)
+
+See [Dockerfile](Dockerfile)
 
 ## Use it
 
