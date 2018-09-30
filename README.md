@@ -28,3 +28,12 @@ $ <doc/moth.png | gif pulse -0 1.0 -1 1.5 -n 20 | gif wobble -d 3x100 -p 100% -c
 ```
 
 ![before](doc/moth.png)![after](doc/moth.gif)
+
+```sh
+$ alias gif="docker run -i --rm ezrgif"
+```
+```sh
+$ <doc/eggplant.png | gif wobble -n 20 > doc/eggplant.gif
+```
+
+![before](doc/eggplant.png)![after](doc/eggplant.gif)
