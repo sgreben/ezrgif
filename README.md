@@ -73,7 +73,7 @@ See [Dockerfile](Dockerfile)
 ```sh
 $ docker run --rm -i ezrgif -h
 Usage:
-    ezrgif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]
+    ezrgif (roll | wobble | pulse | zoom | shake | woke | optimize) [ -h ] [ OPTIONS ]
 ```
 
 ### From source
@@ -81,7 +81,7 @@ Usage:
 ```sh
 $ ./gif -h
 Usage:
-    gif (roll | wobble | pulse | zoom | shake | optimize) [ -h ] [ OPTIONS ]
+    gif (roll | wobble | pulse | zoom | shake | woke | optimize) [ -h ] [ OPTIONS ]
 ```
 
 ## Examples
