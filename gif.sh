@@ -34,7 +34,7 @@ gif_roll() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -82,7 +82,7 @@ gif_wobble() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -131,7 +131,7 @@ gif_pulse() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -180,7 +180,7 @@ gif_zoom() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -241,7 +241,7 @@ gif_shake() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -251,7 +251,6 @@ gif_shake() {
                 GIF:-
     )
 }
-
 gif_woke() {
     FLARE_X=-33
     FLARE_Y=-5
@@ -320,7 +319,7 @@ EOF
     fi
     (
         set -x
-        convert -background transparent -dispose background \
+        convert -background transparent -dispose background -virtual-pixel background \
             "$INPUT" -coalesce \
             -resize "$FINAL_SIZE" \
             null: \
@@ -388,7 +387,7 @@ gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install
     fi
     >&2 echo original: "$size"KB
     for c in "" "--colors=256" "--colors=128" "--colors=64" "--colors=32" "--colors=16"; do
-    for l in 0 5 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200; do
+    for l in 0 5 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250 260 270 280 290 300; do
         >&2 printf "%s --lossy=%3s" "$c" "$l"
         2>/dev/null gifsicle -j $c --resize "$TARGET_GEOMETRY" --lossy="$l" <"$INPUT" >"$TEMP_FILE"
         size=$(du -k "$TEMP_FILE" | xargs printf "%s%0.s")
@@ -407,6 +406,70 @@ gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install
     rm -f "$TEMP_FILE"
     false
 }
+gif_fried() {
+    CUT_TO=60%
+    DISTORT=0.5
+    DISTORT_X=0
+    DISTORT_Y=0
+    FINAL_SIZE=128x128
+    COLOR=orange
+    TINT=80%
+    SATURATION=150
+    BLACK_POINT=25
+    WHITE_POINT=85
+    LOSS=3000
+    COLORS=133
+    while getopts l:x:y:d:c:s:o:t:u:b:w:m:h name
+    do
+        case $name in
+        x) DISTORT_X=$OPTARG ;;
+        y) DISTORT_Y=$OPTARG ;;
+        d) DISTORT=$OPTARG ;;
+        c) CUT_TO=$OPTARG ;;
+        o) COLOR=$OPTARG ;;
+        t) TINT=$OPTARG ;;
+        u) SATURATION=$OPTARG ;;
+        b) BLACK_POINT=$OPTARG ;;
+        w) WHITE_POINT=$OPTARG ;;
+        l) LOSS=$OPTARG ;;
+        m) COLORS=$OPTARG ;;
+        s) FINAL_SIZE=$OPTARG ;;
+        *)
+            >&2 echo "fried [ -d DISTORT ] [ -c CUT_TO ] [ -o COLOR ] [ -t TINT ] [ -b BLACK_POINT ] [ -w WHITE_POINT ] [ -u SATURATION ] [ -l LOSS ] [ -m COLORS ] [ -s FINAL_SIZE ] [ INPUT ]"
+            >&2 echo "defaults:
+    DISTORT_X=$DISTORT_X
+    DISTORT_Y=$DISTORT_Y
+    DISTORT=$DISTORT
+    CUT_TO=$CUT_TO
+    COLOR=$COLOR
+    TINT=$TINT
+    SATURATION=$SATURATION
+    BLACK_POINT=$BLACK_POINT
+    WHITE_POINT=$WHITE_POINT
+    COLORS=$COLORS
+    LOSS=$LOSS
+    FINAL_SIZE=$FINAL_SIZE"
+            return
+        esac
+    done
+    shift $((OPTIND - 1))
+    INPUT=${1:--}
+    (
+        set -x
+        convert -background transparent -dispose background -virtual-pixel background \
+            "$INPUT" \
+            -gravity center \
+            -extent 200%x200%+"$DISTORT_X"+"$DISTORT_Y" \
+            -implode -"$DISTORT" \
+            -extent "$CUT_TO"x"$CUT_TO"-"$DISTORT_X"-"$DISTORT_Y" \
+            -fill "$COLOR" -tint "$TINT" \
+            -modulate 100,"$SATURATION" \
+            -resize "$FINAL_SIZE" \
+            -level "$BLACK_POINT"%,"$WHITE_POINT"% \
+            GIF:- |
+            gifsicle --colors="$COLORS" -f --lossy="$LOSS"
+    )
+}
 
 main() {
     command="${1:-help}"
@@ -420,11 +483,12 @@ main() {
         zoom) gif_zoom "$@" ;;
         shake) gif_shake "$@" ;;
         woke) gif_woke "$@" ;;
+        fried) gif_fried "$@" ;;
         optimize) gif_optimize_for_slack "$@" ;;
         *)
             name=$(basename "$0")
             >&2 echo "Usage:"
-            >&2 echo "    $name (roll | wobble | pulse | zoom | shake | woke | optimize) [ -h ] [ OPTIONS ]"
+            >&2 echo "    $name (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]"
     esac
 }
 

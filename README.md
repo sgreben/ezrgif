@@ -28,6 +28,7 @@ GIF effects from the command-line. (A `sh` wrapper around `imagemagick` and the 
     - [zoom](#zoom)
     - [shake](#shake)
     - [woke](#woke)
+    - [fried](#fried)
     - [optimize](#optimize)
 
 <!-- /TOC -->
@@ -73,7 +74,7 @@ See [Dockerfile](Dockerfile)
 ```sh
 $ docker run --rm -i ezrgif -h
 Usage:
-    ezrgif (roll | wobble | pulse | zoom | shake | woke | optimize) [ -h ] [ OPTIONS ]
+    ezrgif (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
 ```
 
 ### From source
@@ -81,7 +82,7 @@ Usage:
 ```sh
 $ ./gif -h
 Usage:
-    gif (roll | wobble | pulse | zoom | shake | woke | optimize) [ -h ] [ OPTIONS ]
+    gif (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
 ```
 
 ## Examples
@@ -223,6 +224,26 @@ defaults:
     FINAL_SIZE=128x128
 available -m modes:
     Atop, Blend, Blur, Bumpmap, ChangeMask, Clear, ColorBurn, ColorDodge, Colorize, CopyAlpha, CopyBlack, CopyBlue, CopyCyan, CopyGreen, Copy, CopyMagenta, CopyRed, CopyYellow, Darken, DarkenIntensity, DivideDst, DivideSrc, Dst, Difference, Displace, Dissolve, Distort, DstAtop, DstIn, DstOut, DstOver, Exclusion, HardLight, HardMix, Hue, In, Intensity, Lighten, LightenIntensity, LinearBurn, LinearDodge, LinearLight, Luminize, Mathematics, MinusDst, MinusSrc, Modulate, ModulusAdd, ModulusSubtract, Multiply, None, Out, Overlay, Over, PegtopLight, PinLight, Plus, Replace, Saturate, Screen, SoftLight, Src, SrcAtop, SrcIn, SrcOut, SrcOver, Stereo, VividLight, Xor,
+```
+
+### fried
+
+![fried](doc/fried.gif)
+
+```text
+fried [ -d DISTORT ] [ -c CUT_TO ] [ -o COLOR ] [ -t TINT ] [ -b BLACK_POINT ] [ -w WHITE_POINT ] [ -u SATURATION ] [ -l LOSS ] [ -s FINAL_SIZE ] [ INPUT ]
+defaults:
+    DISTORT_X=0
+    DISTORT_Y=0
+    DISTORT=0.5
+    CUT_TO=60%
+    COLOR=orange
+    TINT=80%
+    SATURATION=150
+    BLACK_POINT=25
+    WHITE_POINT=85
+    LOSS=3000
+    FINAL_SIZE=128x128
 ```
 
 ### optimize
