@@ -419,7 +419,6 @@ gif_fried() {
             gifsicle --colors="$COLORS" -f --lossy="$LOSS"
     )
 }
-
 gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install giflossy)
     TARGET_GEOMETRY=128x128
     TARGET_SIZE_KB=128
