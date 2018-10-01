@@ -355,57 +355,6 @@ EOF
         rm -f "$INPUT_TEMP_FILE"
     fi
 }
-
-gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install giflossy)
-    TARGET_GEOMETRY=128x128
-    TARGET_SIZE_KB=128
-    while getopts g:s:h name
-    do
-        case $name in
-        g) TARGET_GEOMETRY=$OPTARG ;;
-        s) TARGET_SIZE_KB=$OPTARG ;;
-        *)
-            >&2 echo "optimize [ -g TARGET_GEOMETRY ] [ -s TARGET_SIZE_KB ] [ INPUT ]"
-            >&2 echo "defaults:
-    TARGET_GEOMETRY=$TARGET_GEOMETRY
-    TARGET_SIZE_KB=$TARGET_SIZE_KB"
-            return
-        esac
-    done
-    shift $((OPTIND - 1))
-    INPUT=${1:--}
-    INPUT_TEMP_FILE=$(mktemp)
-    cat "$INPUT" > "$INPUT_TEMP_FILE"
-    INPUT=$INPUT_TEMP_FILE
-    TEMP_FILE=$(mktemp)
-    size=$(du -k "$INPUT" | xargs printf "%s%0.s")
-    if [ "$size" -le "$TARGET_SIZE_KB" ]; then
-        cat "$INPUT"
-        rm -f "$INPUT_TEMP_FILE"
-        rm -f "$TEMP_FILE"
-        return
-    fi
-    >&2 echo original: "$size"KB
-    for c in "" "--colors=256" "--colors=128" "--colors=64" "--colors=32" "--colors=16"; do
-    for l in 0 5 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250 260 270 280 290 300; do
-        >&2 printf "%s --lossy=%3s" "$c" "$l"
-        2>/dev/null gifsicle -j $c --resize "$TARGET_GEOMETRY" --lossy="$l" <"$INPUT" >"$TEMP_FILE"
-        size=$(du -k "$TEMP_FILE" | xargs printf "%s%0.s")
-        >&2 printf ": %sKB\\n" "$size"
-        if [ "$size" -le "$TARGET_SIZE_KB" ]; then
-            cat "$TEMP_FILE"
-            rm -f "$INPUT_TEMP_FILE"
-            rm -f "$TEMP_FILE"
-            return
-        fi
-    done
-    done
-    >&2 echo "could not get size below $TARGET_SIZE_KB"KB
-    cat "$INPUT"
-    rm -f "$INPUT_TEMP_FILE"
-    rm -f "$TEMP_FILE"
-    false
-}
 gif_fried() {
     CUT_TO=60%
     DISTORT=0.5
@@ -469,6 +418,57 @@ gif_fried() {
             GIF:- |
             gifsicle --colors="$COLORS" -f --lossy="$LOSS"
     )
+}
+
+gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install giflossy)
+    TARGET_GEOMETRY=128x128
+    TARGET_SIZE_KB=128
+    while getopts g:s:h name
+    do
+        case $name in
+        g) TARGET_GEOMETRY=$OPTARG ;;
+        s) TARGET_SIZE_KB=$OPTARG ;;
+        *)
+            >&2 echo "optimize [ -g TARGET_GEOMETRY ] [ -s TARGET_SIZE_KB ] [ INPUT ]"
+            >&2 echo "defaults:
+    TARGET_GEOMETRY=$TARGET_GEOMETRY
+    TARGET_SIZE_KB=$TARGET_SIZE_KB"
+            return
+        esac
+    done
+    shift $((OPTIND - 1))
+    INPUT=${1:--}
+    INPUT_TEMP_FILE=$(mktemp)
+    cat "$INPUT" > "$INPUT_TEMP_FILE"
+    INPUT=$INPUT_TEMP_FILE
+    TEMP_FILE=$(mktemp)
+    size=$(du -k "$INPUT" | xargs printf "%s%0.s")
+    if [ "$size" -le "$TARGET_SIZE_KB" ]; then
+        cat "$INPUT"
+        rm -f "$INPUT_TEMP_FILE"
+        rm -f "$TEMP_FILE"
+        return
+    fi
+    >&2 echo original: "$size"KB
+    for c in "" "--colors=256" "--colors=128" "--colors=64" "--colors=32" "--colors=16"; do
+    for l in 0 5 10 20 30 40 50 60 70 80 90 100 110 120 130 140 150 160 170 180 190 200 210 220 230 240 250 260 270 280 290 300; do
+        >&2 printf "%s --lossy=%3s" "$c" "$l"
+        2>/dev/null gifsicle -j $c --resize "$TARGET_GEOMETRY" --lossy="$l" <"$INPUT" >"$TEMP_FILE"
+        size=$(du -k "$TEMP_FILE" | xargs printf "%s%0.s")
+        >&2 printf ": %sKB\\n" "$size"
+        if [ "$size" -le "$TARGET_SIZE_KB" ]; then
+            cat "$TEMP_FILE"
+            rm -f "$INPUT_TEMP_FILE"
+            rm -f "$TEMP_FILE"
+            return
+        fi
+    done
+    done
+    >&2 echo "could not get size below $TARGET_SIZE_KB"KB
+    cat "$INPUT"
+    rm -f "$INPUT_TEMP_FILE"
+    rm -f "$TEMP_FILE"
+    false
 }
 
 main() {
