@@ -1,5 +1,6 @@
 #!/bin/sh -eu
 LENSFLARE_PNG_BASE64=
+DEFAULT_FINAL_SIZE=128x128
 
 gif_roll() {
     PAD_TO=200%
@@ -7,7 +8,7 @@ gif_roll() {
     DELAY=2x100
     NUM_FRAMES=1
     REVOLUTIONS=1
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     while getopts p:c:d:n:r:s:h name
     do
         case $name in
@@ -51,7 +52,7 @@ gif_wobble() {
     NUM_FRAMES=1
     AMPLITUDE=8
     FREQUENCY=1
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     while getopts p:c:d:n:a:f:s:h name
     do
         case $name in
@@ -100,7 +101,7 @@ gif_pulse() {
     SCALE_MIN=50
     SCALE_MAX=1.0
     FREQUENCY=1
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     while getopts p:c:d:n:0:1:f:s:h name
     do
         case $name in
@@ -149,7 +150,7 @@ gif_zoom() {
     SCALE_MIN=0.5
     SCALE_MAX=1.0
     POWER=2.0
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     while getopts p:c:d:n:0:1:e:s:h name
     do
         case $name in
@@ -202,7 +203,7 @@ gif_shake() {
     PHASE_X=0
     PHASE_Y=pi/2
     PHASE_RANDOM=pi
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     while getopts p:c:d:n:x:y:f:g:o:r:s:h name
     do
         case $name in
@@ -256,7 +257,7 @@ gif_woke() {
     FLARE_Y=-5
     FLARE_SCALE=90%
     FLARE_ALPHA=0.5
-    FINAL_SIZE=128x128
+    FINAL_SIZE=$DEFAULT_FINAL_SIZE
     FLARE_FRAMES=
     MIRROR_X=0
     MIRROR_Y=0
