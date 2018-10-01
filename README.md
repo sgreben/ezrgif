@@ -231,7 +231,7 @@ available -m modes:
 ![fried](doc/fried.gif)
 
 ```text
-fried [ -d DISTORT ] [ -c CUT_TO ] [ -o COLOR ] [ -t TINT ] [ -b BLACK_POINT ] [ -w WHITE_POINT ] [ -u SATURATION ] [ -l LOSS ] [ -s FINAL_SIZE ] [ INPUT ]
+fried [ -d DISTORT ] [ -c CUT_TO ] [ -o COLOR ] [ -t TINT ] [ -b BLACK_POINT ] [ -w WHITE_POINT ] [ -u SATURATION ] [ -l LOSS ] [ -m COLORS ] [ -s FINAL_SIZE ] [ INPUT ]
 defaults:
     DISTORT_X=0
     DISTORT_Y=0
@@ -242,6 +242,7 @@ defaults:
     SATURATION=150
     BLACK_POINT=25
     WHITE_POINT=85
+    COLORS=133
     LOSS=3000
     FINAL_SIZE=128x128
 ```
