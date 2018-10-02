@@ -116,7 +116,7 @@ $ <doc/eggplant.png gif wobble -c 60% -n 20 > doc/eggplant.gif
 ### Woke+optimize
 
 ```sh
-$ <doc/moth.png gif woke -f -n 10 -y -15 -a 1.0 -m linear-dodge -z 60% | gif optimize > doc/woke.gif
+$ <doc/moth.png gif woke -f -n 10 -y -15 -z 60% | gif optimize > doc/woke.gif
 ```
 
 ![before](doc/moth.png)![after](doc/woke.gif)

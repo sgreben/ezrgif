@@ -35,7 +35,7 @@ gif_roll() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -83,7 +83,7 @@ gif_wobble() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -132,7 +132,7 @@ gif_pulse() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -181,7 +181,7 @@ gif_zoom() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -242,7 +242,7 @@ gif_shake() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
                 "$INPUT" -background transparent \
                 -gravity center -extent "$PAD_TO" \
                 -duplicate "$NUM_FRAMES" -loop 0 \
@@ -256,12 +256,12 @@ gif_woke() {
     FLARE_X=-33
     FLARE_Y=-5
     FLARE_SCALE=90%
-    FLARE_ALPHA=0.5
+    FLARE_ALPHA=1.0
     FINAL_SIZE=$DEFAULT_FINAL_SIZE
     FLARE_FRAMES=
     MIRROR_X=0
     MIRROR_Y=0
-    MODE=linear-light
+    MODE=linear-dodge
     FLARE_ANGLE_RANDOM=30
     FLARE_TRANSFORM=0
     DELAY=2x100
@@ -320,7 +320,7 @@ EOF
     fi
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
             "$INPUT" -coalesce \
             -resize "$FINAL_SIZE" \
             null: \
@@ -406,7 +406,7 @@ gif_fried() {
     INPUT=${1:--}
     (
         set -x
-        convert -background transparent -dispose background -virtual-pixel background \
+        convert -background transparent -dispose background -virtual-pixel transparent \
             "$INPUT" \
             -gravity center \
             -extent 200%x200%+"$DISTORT_X"+"$DISTORT_Y" \
