@@ -48,7 +48,7 @@ You can now simply `docker run -i ezrgif`.
 
 ### From source
 
-This probably starts up a bit faster than the Docker option, but you need to take care of the dependencies yourself.
+You can also just get the [gif.sh](https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh). This probably starts up a bit faster than the Docker option, but you need to take care of the dependencies yourself.
 
 ```sh
 $ curl -sSL https://raw.githubusercontent.com/sgreben/ezrgif/master/gif.sh > gif
