@@ -74,7 +74,9 @@ See [Dockerfile](Dockerfile)
 ```sh
 $ docker run --rm -i ezrgif -h
 Usage:
-    ezrgif (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
+    gif.sh [ -s DEFAULT_FINAL_SIZE ] (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
+defaults:
+        DEFAULT_FINAL_SIZE=128x128
 ```
 
 ### From source
@@ -82,7 +84,9 @@ Usage:
 ```sh
 $ ./gif -h
 Usage:
-    gif (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
+    gif.sh [ -s DEFAULT_FINAL_SIZE ] (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]
+defaults:
+        DEFAULT_FINAL_SIZE=128x128
 ```
 
 ## Examples

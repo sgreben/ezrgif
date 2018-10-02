@@ -420,8 +420,8 @@ gif_fried() {
             gifsicle --colors="$COLORS" -f --lossy="$LOSS"
     )
 }
-gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install giflossy)
-    TARGET_GEOMETRY=128x128
+gif_optimize() { # requires gifsicle with --lossy option (brew install giflossy)
+    TARGET_GEOMETRY=$DEFAULT_FINAL_SIZE
     TARGET_SIZE_KB=128
     while getopts g:s:h name
     do
@@ -472,6 +472,9 @@ gif_optimize_for_slack() { # requires gifsicle with --lossy option (brew install
 }
 
 main() {
+    case ${1:-} in
+        -s) DEFAULT_FINAL_SIZE="$2"; shift 2 ;;
+    esac
     command="${1:-help}"
     if [ $# -gt 0 ]; then
         shift
@@ -484,11 +487,13 @@ main() {
         shake) gif_shake "$@" ;;
         woke) gif_woke "$@" ;;
         fried) gif_fried "$@" ;;
-        optimize) gif_optimize_for_slack "$@" ;;
+        optimize) gif_optimize "$@" ;;
         *)
             name=$(basename "$0")
             >&2 echo "Usage:"
-            >&2 echo "    $name (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]"
+            >&2 echo "    $name [ -s DEFAULT_FINAL_SIZE ] (roll | wobble | pulse | zoom | shake | woke | fried | optimize) [ -h ] [ OPTIONS ]"
+            >&2 echo "defaults:
+        DEFAULT_FINAL_SIZE=$DEFAULT_FINAL_SIZE"
     esac
 }
 
