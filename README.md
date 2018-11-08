@@ -1,5 +1,7 @@
 # ezrgif
 
+**NOTE**: I have since rewritten this tool in Go as [yeetgif](https://github.com/sgreben/yeetgif). This repo is no longer maintained.
+
 [![Docker Repository on Quay](https://quay.io/repository/sergey_grebenshchikov/ezrgif/status "Docker Repository on Quay")](https://quay.io/repository/sergey_grebenshchikov/ezrgif)
 
 GIF effects from the command-line. (A `sh` wrapper around `imagemagick` and the `giflossy` fork of `gifsicle`)
